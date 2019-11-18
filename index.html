@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Disable CTRL+Q</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>Disable CTRL+Q</title>
 </head>
+
 <style>
-body {
-  background-color: #eee;
-  max-width: 800px;
-  margin: 20px auto;
-}
-
-button {
-  font-size: 200%;
-  margin: 10px auto;
-  display: block;
-}
-
-#inactive {
-  background-color: #f88;
-  padding: 20px 40px;
-}
-
-#active {
-  display: none;
-  background-color: #8f8;
-  padding: 20px 40px;
-  font-size: 120%;
-}
+  body.dark {
+    --bg:#333333;
+    --text:#eee;
+    --link:#75daea;
+  }
+  body.light {
+    --bg:#eee;
+    --text:black;
+    --link:blue;
+  }
+  body {
+    background-color:var(--bg);
+    color:var(--text);
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  button {
+    font-size: 200%;
+    margin: 10px auto;
+    display: block;
+  }
+  #inactive {
+    background-color: #f88;
+    padding: 20px 40px;
+    color: #000000;
+  }
+  #active {
+    display: none;
+    background-color: #8f8;
+    padding: 20px 40px;
+    font-size: 120%;
+    color: #000000;
+  }
+  a {
+    color:var(--link);
+  }
 </style>
-<body>
+
+<body class="dark" id="body">
   <h1>Disable CTRL+Q</h1>
   <h2>on Firefox for Linux (and other browsers)</h2>
   <p>
-    Unfortunately, as of 2018-11-07, there does not seem to be an easy way to keep CTRL+Q from closing Firefox without warning under Linux, and most of the workarounds are unreliable or only work in certain circumstances.
-    The <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1325692">corresponding bug</a> has been locked to prevent further comments, and then ignored for 4+ months, so it doesn't seem likely that this will be fixed soon.
-    <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=243164">Unlike in Chrome</a>, I shall add (thank you, Chrome team!).
+    Unfortunately, as of 2018-11-07, there does not seem to be an easy way to keep CTRL+Q from closing Firefox without warning under Linux, and most of the workarounds are unreliable or only work in certain circumstances. The <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1325692">corresponding bug</a>
+ has been locked to prevent further comments, and then ignored for 4+ months, so it doesn't seem likely that this will be fixed soon. <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=243164">Unlike in Chrome</a>, I shall add (thank you, Chrome team!).
   </p>
   <p>
     As a consequence, every time you accidentally hit CTRL+Q, Firefox closes and you have to re-open it, wait for tabs to restore (and log in again everywhere if you discard cookies on exit).
   </p>
   <p>
-    So I made this site. It can't completely disable the shortcut, but it will trigger a confirmation dialog so you can keep it from closing your entire browser.
-    And hopefully motivate a Firefox developer into addressing this before the heat death of the universe. If this gets popular, maybe I'll add a global counter?
+    So I made this site. It can't completely disable the shortcut, but it will trigger a confirmation dialog so you can keep it from closing your entire browser. And hopefully motivate a Firefox developer into addressing this before the heat death of the universe. If this gets popular, maybe I'll add a global counter?
   </p>
   <div id="inactive">
     <h2>Protection against CTRL+Q inactive!</h2>
@@ -69,5 +83,47 @@ button {
       }
     }
   </script>
+
+<!-- Code stolen from DonkeyCase and modified -->
+
+  <input id="lightbox" type="checkbox" onclick="lightTheme()" />
+  <label for="lightbox"> Light theme</label>
+
+  <script type="text/javascript">
+
+    const lightbox = document.getElementById('lightbox')
+    document.addEventListener("ligthbox", lightTheme);
+
+    function lightTheme() {
+      if (lightbox.checked) {
+        document.body.classList.add('light');
+      }
+      else {
+        document.body.classList.remove('light');
+        document.body.classList.add('dark');
+      }
+    }
+
+  </script>
+
 </body>
+
 </html>
+
+</body></html>
+
+<!-- originally written by @janschejbal, who implemented it in a website at https://janschejbal.github.io/disable-ctrl-q/ -->
+<!-- dark theme portion modified from @jennydaman's DonkeyCase, https://jennydaman.gitlab.io/donkeycase/ -->
+
+<!--
+
+light theme colors:
+	text; black (default)
+	background: #eee (soft light gray)
+
+dark theme colors:
+	text: #eee (soft light gray)
+	background: #333333 (dark gray)
+	links: #75daea (light blue)
+
+-->
